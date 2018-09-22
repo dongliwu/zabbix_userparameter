@@ -1,0 +1,4 @@
+# for zabbix
+# disk
+*	*	*	*	*	/usr/bin/iostat -x -d 1 2 > /tmp/disk_status.log
+# 
