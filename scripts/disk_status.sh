@@ -4,7 +4,7 @@ DISK=$1
 ITEM=$2
 
 function getItem(){
-    /bin/env iostat -x -d 1 2 | grep "^$1 " | awk "END {print $2}"
+    iostat -x -d 1 2 | grep "^$1 " | awk "END {print $2}"
 }
 
 case $ITEM in
