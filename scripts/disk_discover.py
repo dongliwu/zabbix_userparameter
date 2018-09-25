@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/python
 #coding:utf-8
 # 获取磁盘脚本
 import commands
