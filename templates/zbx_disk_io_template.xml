@@ -541,7 +541,7 @@
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>DiskIo process on {#DISK_NAME}</name>
+                            <name>DiskIO process on {#DISK_NAME}</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
