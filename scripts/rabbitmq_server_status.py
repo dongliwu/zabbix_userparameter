@@ -6,9 +6,11 @@ import requests
 import json
 import base64
 import sys
+import os
 
 conf = ConfigParser.ConfigParser()
-conf.read("rabbitmq.conf")
+dir=os.path.split(os.path.realpath(__file__))[0]
+conf.read(dir + "/rabbitmq.conf")
 
 class RabbitMQ(object):
 
@@ -56,14 +58,6 @@ def main():
             print(rabbitmq.getServerStatus()['message_stats']['publish_details']['rate'])
         elif item == 'message_stats_ack':
             print(rabbitmq.getServerStatus()['message_stats']['ack_details']['rate'])
-        elif item == 'message_count_total':
-            print(rabbitmq.getServerStatus()['queue_totals']['messages'])
-        elif item == 'message_count_ready':
-            print(rabbitmq.getServerStatus()['queue_totals']['messages_ready'])
-        elif item == 'message_count_unacknowledged':
-            print(rabbitmq.getServerStatus()['queue_totals']['messages_unacknowledged'])
-            
-
     else:
         print('Incorrect parameters')
 

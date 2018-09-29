@@ -5,9 +5,11 @@ import ConfigParser
 import requests
 import json
 import base64
+import os
 
 conf = ConfigParser.ConfigParser()
-conf.read("rabbitmq.conf")
+dir=os.path.split(os.path.realpath(__file__))[0]
+conf.read(dir + "/rabbitmq.conf") 
 
 class RabbitMQ(object):
 

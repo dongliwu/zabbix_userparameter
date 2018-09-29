@@ -25,7 +25,7 @@ UserParameter=disk.status[*],/usr/local/zabbix_userparameter/scripts/disk_status
 disk.discovery
 
 # 磁盘状态
-disk.status[{#DISK_NAME}, <ITEM>
+disk.status[{#DISK_NAME}, <ITEM>]
 # {#DISK_NAME} 为自动发现的磁盘名, 无需更改
 # ITEM 可选值: "readps", "writeps", "readBSec", "writeBSec", "writeBSec", "queue", "readAwait", "writeAwait", "svctm", "util"
 ```
@@ -95,14 +95,14 @@ rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},<METRIC>,{#QUEUE_NAME}]
 
 # 服务状态
 rabbitmq.server.status[<ITEM>]
-# ITEM 可选值: "rabbitmq_version", "erlang_version", "message_stats_deliver_get", "message_stats_publish", "message_stats_ack", "message_count_total", "message_count_ready", "message_count_unacknowledged"
+# ITEM 可选值: "rabbitmq_version", "erlang_version", "message_stats_deliver_get", "message_stats_publish", "message_stats_ack"
 ```
 
 模板:
 
+[zbx_rabbitmq_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_rabbitmq_template.xml)
 
-
-注意:
+连接账户配置:
 
 ```bash
 # 在scripts目录中的rabbitmq.cong文件中修改rabbitmq的连接信息
@@ -112,5 +112,12 @@ username = guest
 password = guest
 port = 15672
 protocol = http
+```
+
+执行权限:
+
+```bash
+# 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
+echo "zabbix    ALL=(ALL)    NOPASSWD: /usr/sbin/rabbitmqctl " >> /etc/sudoers
 ```
 
