@@ -497,7 +497,7 @@
                     </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>DiskIO flow on {#DISK_NAME}</name>
+                            <name>DiskIO flows on {#DISK_NAME}</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
