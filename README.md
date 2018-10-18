@@ -55,7 +55,7 @@ process.mem[<FILTER>]
 
 ### RabbitMQ监控
 
-RabbitMQ监控脚本的逻辑与思想来自以下两位的代码，感谢:
+RabbitMQ监控脚本的逻辑与思想来自以下两位的代码:
 
 https://github.com/jasonmcintosh/rabbitmq-zabbix
 
@@ -120,4 +120,64 @@ protocol = http
 # 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
 echo "zabbix    ALL=(ALL)    NOPASSWD: /usr/sbin/rabbitmqctl " >> /etc/sudoers
 ```
+
+
+
+### Apache httpd监控
+
+加载mod_status模块:
+
+```bash
+# 在httpd配置文件中导入模块
+LoadModule status_module modules/mod_status.so
+```
+
+开启server-status:
+
+```bash
+# 在httpd中的默认虚拟主机中添加如下内容
+<IfModule mod_status.c>
+	<Location /server-status>
+		SetHandler server-status
+		# 允许指定主机访问
+		Require local
+	</Location>
+    # 扩展显示，可显示更详尽内容，开启会降低性能
+	ExtendedStatus On
+
+    # 开启代理的状态
+	<IfModule mod_proxy.c>
+		ProxyStatus On
+	</IfModule>
+</IfModule>
+```
+
+重启服务:
+
+```bash
+sudo apachectl -t
+sudo systemctl restart httpd 
+```
+
+配置:
+
+```bash
+# Apache httpd
+UserParameter=httpd.status[*],/usr/local/zabbix_userparameter/scripts/httpd_status.sh $1 $2
+```
+
+键值:
+
+```bash
+# 更新status文件
+httpd.status[update,]
+
+# 获取status值
+httpd.status[get,<ITEM>]
+# ITEM 可选值: "TotalAccesses", "TotalKBytes", "CPULoad", "Uptime", "ReqPerSec", "BytesPerSec", "BytesPerReq", "BusyWorkers", "IdleWorkers", "WaitingForConnection", "StartingUp", "ReadingRequest", "SendingReply", "KeepAlive", "DNSLookup", "ClosingConnection", "Logging", "GracefullyFinishing", "IdleCleanupOfWorker", "OpenSlotWithNoCurrentProcess"
+```
+
+模板:
+
+[zbx_httpd_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_httpd_template.xml)
 

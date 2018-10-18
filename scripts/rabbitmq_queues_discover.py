@@ -34,7 +34,7 @@ class RabbitMQ(object):
         except requests.exceptions.ConnectionError as e:
             return e
         except:
-            return "An Unknow Error Happend"
+            return "An Unknow Error Happened"
         else:
             return response
 
