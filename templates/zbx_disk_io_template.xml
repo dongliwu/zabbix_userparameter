@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-09-25T10:25:51Z</date>
+    <date>2018-10-18T06:34:31Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
+        </group>
+        <group>
+            <name>Templates</name>
         </group>
     </groups>
     <templates>
@@ -15,6 +18,9 @@
             <groups>
                 <group>
                     <name>Linux servers</name>
+                </group>
+                <group>
+                    <name>Templates</name>
                 </group>
             </groups>
             <applications>
@@ -57,7 +63,7 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>等待处理队列: {#DISK_NAME}</name>
+                            <name>Disk/queue-等待处理队列: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -99,7 +105,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>读处理时间: {#DISK_NAME}</name>
+                            <name>Disk/readAwait-读处理时间: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -141,7 +147,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>读取数据/s: {#DISK_NAME}</name>
+                            <name>Disk/readBSec-每秒读取数据: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -188,7 +194,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>磁盘读次数/s: {#DISK_NAME}</name>
+                            <name>Disk/readps-磁盘每秒读次数: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -199,7 +205,7 @@
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units>次</units>
+                            <units/>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -230,7 +236,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>IO处理时间: {#DISK_NAME}</name>
+                            <name>Disk/svctm-IO处理时间: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -272,7 +278,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>IO利用率: {#DISK_NAME}</name>
+                            <name>Disk/util-IO利用率: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -314,7 +320,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>写处理时间: {#DISK_NAME}</name>
+                            <name>Disk/writeAwait-写处理时间: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -356,7 +362,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>写入数据/s: {#DISK_NAME}</name>
+                            <name>Disk/writeBSec-每秒写入数据: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -403,7 +409,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>磁盘写次数/s: {#DISK_NAME}</name>
+                            <name>Disk/writeps-磁盘每秒写次数: {#DISK_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -414,7 +420,7 @@
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units>次</units>
+                            <units/>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -445,56 +451,7 @@
                             <master_item_prototype/>
                         </item_prototype>
                     </item_prototypes>
-                    <trigger_prototypes>
-                        <trigger_prototype>
-                            <expression>{Template DiskIO:disk.status[{#DISK_NAME}, readps].last()}&gt;140</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template DiskIO:disk.status[{#DISK_NAME}, writeps].last()}&lt;140</recovery_expression>
-                            <name>{#DISK_NAME}的每秒写入次数超过140</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags/>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template DiskIO:disk.status[{#DISK_NAME}, readps].last()}&gt;140</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template DiskIO:disk.status[{#DISK_NAME}, readps].last()}&lt;140</recovery_expression>
-                            <name>{#DISK_NAME}的每秒读取次数超过140</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags/>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template DiskIO:disk.status[{#DISK_NAME}, util].last()}&gt;90</expression>
-                            <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template DiskIO:disk.status[{#DISK_NAME}, util].last()}&lt;90</recovery_expression>
-                            <name>{#DISK_NAME}的磁盘IO利用率超过90%</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>4</priority>
-                            <description/>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags/>
-                        </trigger_prototype>
-                    </trigger_prototypes>
+                    <trigger_prototypes/>
                     <graph_prototypes>
                         <graph_prototype>
                             <name>DiskIO flows on {#DISK_NAME}</name>
