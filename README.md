@@ -8,7 +8,7 @@
 sudo yum install -y sysstat
 
 # Ubuntu
-sudo yum install -y sysstat
+sudo apt-get install -y sysstat
 ```
 
 配置:
