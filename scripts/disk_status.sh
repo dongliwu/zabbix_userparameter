@@ -3,8 +3,10 @@
 DISK=$1
 ITEM=$2
 
+cache="/tmp/disk_status.log"
+
 function getItem(){
-    iostat -x -d 1 2 | grep "^$1 " | awk "END {print $2}"
+    cat $cache | grep "^$1 " | awk "END {print $2}"
 }
 
 case $ITEM in
