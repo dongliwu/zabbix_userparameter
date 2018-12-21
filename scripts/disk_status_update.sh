@@ -1,9 +1,16 @@
 #!/bin/bash
 
-cache="/tmp/disk_status.log"
+DISK=$1
+CACHE="/tmp/disk_status.log"
+EXEC=`which iostat`
+
+if [ -z "${EXEC}" ]; then
+   echo "ERROR: Couldn't find iostat";
+   exit 1;
+fi
 
 function updateStatus(){
-    iostat -x -d 1 2 > $cache
+    ${EXEC} -x -d 1 2 > $CACHE
     if [ $? -eq 0 ];then
         exit 0
     else

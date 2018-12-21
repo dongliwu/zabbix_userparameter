@@ -41,6 +41,13 @@ disk.smart[#DISK_NAME}]
 # {#DISK_NAME} 为自动发现的磁盘名, 无需更改
 ```
 
+执行权限:
+
+```bash
+# 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
+echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
+```
+
 模板:
 
 [zbx_disk_io_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_disk_io_template.xml)

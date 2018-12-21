@@ -3,10 +3,18 @@
 
 DISK=$1
 
-result=$(smartctl -H /dev/$DISK)
+EXEC=`which smartctl`
 
-if [[ `echo $result|grep -v grep|grep 'PASSED'` ]];then
-	echo "1"
+if [ -z "${EXEC}" ]; then
+   echo "ERROR: Couldn't find smartctl";
+   exit 1;
+fi
+
+RESULT=$(sudo ${EXEC} -H /dev/$DISK)
+STATUS=$(echo ${RESULT} |  grep -E 'OK|PASSED' | wc -l)
+
+if [[ ${STATUS} -eq 1 ]];then
+	echo "1" # smart检测硬盘为健康状态
 else
-	echo "0"
+	echo "0" # smart检测硬盘为非健康状态，需紧急更换硬盘
 fi
