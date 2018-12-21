@@ -6,16 +6,20 @@
 ```bash
 # CentOS
 sudo yum install -y sysstat
+sudo yum install -y smartmontools
 
 # Ubuntu
 sudo apt-get install -y sysstat
+sudo apt-get install -y smartmontools
 ```
 
 配置:
 
 ```bash
 UserParameter=disk.discovery,/usr/local/zabbix_userparameter/scripts/disk_discover.py
+UserParameter=disk.update,/usr/local/zabbix_userparameter/scripts/disk_status_update.sh
 UserParameter=disk.status[*],/usr/local/zabbix_userparameter/scripts/disk_status.sh $1 $2
+UserParameter=disk.smart[*],/usr/local/zabbix_userparameter/scripts/disk_smart.sh $1
 ```
 
 键值:
@@ -24,10 +28,17 @@ UserParameter=disk.status[*],/usr/local/zabbix_userparameter/scripts/disk_status
 # 磁盘自动发现
 disk.discovery
 
-# 磁盘状态
+# 磁盘状态更新
+disk.update
+
+# 磁盘状态获取
 disk.status[{#DISK_NAME}, <ITEM>]
 # {#DISK_NAME} 为自动发现的磁盘名, 无需更改
 # ITEM 可选值: "readps", "writeps", "readBSec", "writeBSec", "writeBSec", "queue", "readAwait", "writeAwait", "svctm", "util"
+
+# 硬盘smart状态
+disk.smart[#DISK_NAME}]
+# {#DISK_NAME} 为自动发现的磁盘名, 无需更改
 ```
 
 模板:
