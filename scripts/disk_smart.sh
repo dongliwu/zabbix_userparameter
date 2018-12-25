@@ -10,6 +10,12 @@ if [ -z "${EXEC}" ]; then
    exit 1;
 fi
 
+
+if [[ $DISK == v* ]]; then
+	echo "ERROR: Unsupported disk type"
+	exit 1
+fi
+
 RESULT=$(sudo ${EXEC} -H /dev/$DISK)
 STATUS=$(echo ${RESULT} |  grep -E 'OK|PASSED' | wc -l)
 

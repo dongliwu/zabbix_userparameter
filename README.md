@@ -6,11 +6,9 @@
 ```bash
 # CentOS
 sudo yum install -y sysstat
-sudo yum install -y smartmontools
 
 # Ubuntu
 sudo apt-get install -y sysstat
-sudo apt-get install -y smartmontools
 ```
 
 配置:
@@ -19,7 +17,6 @@ sudo apt-get install -y smartmontools
 UserParameter=disk.discovery,/usr/local/zabbix_userparameter/scripts/disk_discover.py
 UserParameter=disk.update,/usr/local/zabbix_userparameter/scripts/disk_status_update.sh
 UserParameter=disk.status[*],/usr/local/zabbix_userparameter/scripts/disk_status.sh $1 $2
-UserParameter=disk.smart[*],/usr/local/zabbix_userparameter/scripts/disk_smart.sh $1
 ```
 
 键值:
@@ -35,6 +32,43 @@ disk.update
 disk.status[{#DISK_NAME}, <ITEM>]
 # {#DISK_NAME} 为自动发现的磁盘名, 无需更改
 # ITEM 可选值: "readps", "writeps", "readBSec", "writeBSec", "writeBSec", "queue", "readAwait", "writeAwait", "svctm", "util"
+```
+
+执行权限:
+
+```bash
+# 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
+echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
+```
+
+模板:
+
+[zbx_disk_io_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_disk_io_template.xml)
+
+###  SMART磁盘检测
+
+所需依赖:
+
+```bash
+# CentOS
+sudo yum install -y smartmontools
+
+# Ubuntu
+sudo apt-get install -y smartmontools
+```
+
+配置:
+
+```bash
+UserParameter=disk.smart.discovery,/usr/local/zabbix_userparameter/scripts/disk_discover.py
+UserParameter=disk.smart[*],/usr/local/zabbix_userparameter/scripts/disk_smart.sh $1
+```
+
+键值:
+
+```bash
+# 磁盘自动发现
+disk.smart.discovery
 
 # 硬盘smart状态
 disk.smart[#DISK_NAME}]
@@ -50,7 +84,7 @@ echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
 
 模板:
 
-[zbx_disk_io_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_disk_io_template.xml)
+[zbx_disk_smart_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_disk_smart_template.xml)
 
 
 
