@@ -54,6 +54,75 @@ echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
 
 
 
+### RAID磁盘监控
+
+所需依赖
+
+```bash
+# CentOS
+wget https://raw.githubusercontent.com/crazy-zhangcong/tools/master/MegaCli8.07.10.tar.gz
+tar zxvf MegaCli8.07.10.tar.gz
+cd MegaCli8.07.10/Linux/
+rpm -ivh Lib_Utils-1.00-09.noarch.rpm
+rpm -ivh MegaCli-8.02.21-1.noarch.rpm
+ln -s /opt/MegaRAID/MegaCli/MegaCli64 /usr/local/bin/MegaCli
+```
+```bash
+# Ubuntu
+apt-get -y install  rpm2cpio libsysfs2 libsysfs-dev unzip
+cd /lib/x86_64-linux-gnu/
+ln -s libsysfs.so.2.0.1 libsysfs.so.2.0.2
+wget https://raw.githubusercontent.com/crazy-zhangcong/tools/master/MegaCli8.07.10.tar.gz
+tar zxvf MegaCli8.07.10.tar.gz
+cd MegaCli8.07.10/Linux/
+rpm2cpio Lib_Utils-1.00-09.noarch.rpm | cpio -idmv
+rpm2cpio MegaCli-8.02.21-1.noarch.rpm | cpio -idmv
+mv opt/* /opt
+ln -s /opt/MegaRAID/MegaCli/MegaCli64 /usr/local/bin/MegaCli
+```
+
+配置:
+
+```bash
+UserParameter=raid.vol.discovery,/usr/local/zabbix_userparameter/scripts/raid_vol_discovery.py
+UserParameter=raid.vol[*],/usr/local/zabbix_userparameter/scripts/raid_vol.sh $1 $2
+UserParameter=raid.disk.discovery,/usr/local/zabbix_userparameter/scripts/raid_disk_discovery.py
+UserParameter=raid.disk[*],/usr/local/zabbix_userparameter/scripts/raid_disk.sh $1 $2
+```
+
+键值:
+
+```bash
+# 逻辑卷自动发现
+raid.vol.discovery
+
+# 逻辑卷状态
+raid.vol[{#RAID_VOLUM}, <ITEM>]
+# {#RAID_VOLUM} 为自动发现的raid逻辑卷, 无需更改
+# ITEM 可选值: "state"
+
+# 物理磁盘自动发现
+raid.disk.discovery
+
+# 物理磁盘状态
+raid.disk[#RAID_DISK}, <ITEM>]
+# {#RAID_DISK} 为自动发现的物理磁盘, 无需更改
+# ITEM 可选值: "errors-media","errors-other","predictive-failures","predictive-failures","drive-temp","smart-error-flag"
+```
+
+执行权限:
+
+```bash
+# 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
+echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
+```
+
+模板:
+
+[zbx_raid_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_raid_template.xml)
+
+
+
 ### 进程内存监控
 
 配置:
@@ -136,7 +205,7 @@ protocol = http
 
 ```bash
 # 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
-echo "zabbix    ALL=(ALL)    NOPASSWD: /usr/sbin/rabbitmqctl " >> /etc/sudoers
+echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
 ```
 
 
