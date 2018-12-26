@@ -12,10 +12,11 @@ fi
 function updateStatus(){
     ${EXEC} -x -d 1 2 > $CACHE
     if [ $? -eq 0 ];then
-        exit 0
+        # 状态更新成功
+        echo 1
     else
-        echo "Unable to update status"
-        exit 1
+        # 状态更新失败
+        echo 0
     fi
 }
 
