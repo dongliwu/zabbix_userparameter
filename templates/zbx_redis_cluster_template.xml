@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-10-22T06:56:54Z</date>
+    <date>2019-10-17T09:56:27Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -9,12 +9,15 @@
         <group>
             <name>Templates</name>
         </group>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
     </groups>
     <templates>
         <template>
-            <template>Template App  HTTPD</template>
-            <name>Template App  HTTPD</name>
-            <description>httpd服务模板</description>
+            <template>Template App Redis Cluster</template>
+            <name>Template App Redis Cluster</name>
+            <description>redis集群监控</description>
             <groups>
                 <group>
                     <name>Linux servers</name>
@@ -22,19 +25,22 @@
                 <group>
                     <name>Templates</name>
                 </group>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
             </groups>
             <applications>
                 <application>
-                    <name>HTTPD</name>
+                    <name>Redis</name>
                 </application>
             </applications>
             <items>
                 <item>
-                    <name>BusyWorkers-忙碌进程</name>
+                    <name>cluster_current_epoch</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,BusyWorkers]</key>
+                    <key>redis.cluster.status[cluster_current_epoch]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -61,7 +67,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -71,103 +77,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>BytesPerReq-每请求字节大小</name>
+                    <name>cluster_known_nodes</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,BytesPerReq]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing>
-                        <step>
-                            <type>1</type>
-                            <params>1024</params>
-                        </step>
-                    </preprocessing>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>BytesPerSec-每秒字节大小</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,BytesPerSec]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>3</value_type>
-                    <allowed_hosts/>
-                    <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing>
-                        <step>
-                            <type>1</type>
-                            <params>1024</params>
-                        </step>
-                    </preprocessing>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>ClosingConnection-关闭连接</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,ClosingConnection]</key>
+                    <key>redis.cluster.status[cluster_known_nodes]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -194,7 +108,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -204,52 +118,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>CPULoad-CPU负载</name>
+                    <name>cluster_size</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,CPULoad]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units/>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>DNSLookup-DNS查询</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,DNSLookup]</key>
+                    <key>redis.cluster.status[cluster_size]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -276,7 +149,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -286,11 +159,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>GracefullyFinishing-正常结束</name>
+                    <name>cluster_slots_assigned</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,GracefullyFinishing]</key>
+                    <key>redis.cluster.status[cluster_slots_assigned]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -317,7 +190,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -327,11 +200,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>IdleCleanupOfWorker-处理闲置</name>
+                    <name>cluster_slots_fail</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,IdleCleanupOfWorker]</key>
+                    <key>redis.cluster.status[cluster_slots_fail]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -358,7 +231,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -368,11 +241,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>IdleWorkers-闲置进程</name>
+                    <name>cluster_slots_ok</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,IdleWorkers]</key>
+                    <key>redis.cluster.status[cluster_slots_ok]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -399,7 +272,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -409,11 +282,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>KeepAlive-保持连接</name>
+                    <name>cluster_slots_pfail</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,KeepAlive]</key>
+                    <key>redis.cluster.status[cluster_slots_pfail]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -440,7 +313,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -450,11 +323,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Logging-记录日志</name>
+                    <name>cluster_state</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,Logging]</key>
+                    <key>redis.cluster.status[cluster_state]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -481,7 +354,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -491,11 +364,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>OpenSlotWithNoCurrentProcess-闲置连接口</name>
+                    <name>cluster_stats_messages_ping_received</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,OpenSlotWithNoCurrentProcess]</key>
+                    <key>redis.cluster.status[cluster_stats_messages_ping_received]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -522,7 +395,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -532,93 +405,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>ReadingRequest-读取请求</name>
+                    <name>cluster_stats_messages_ping_sent</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,ReadingRequest]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units/>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>ReqPerSec-每秒请求数</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,ReqPerSec]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units/>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>SendingReply-发送回复</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,SendingReply]</key>
+                    <key>redis.cluster.status[cluster_stats_messages_ping_sent]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -645,7 +436,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -655,11 +446,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>StartingUp-启动中</name>
+                    <name>cluster_stats_messages_pong_received</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,StartingUp]</key>
+                    <key>redis.cluster.status[cluster_stats_messages_pong_received]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -686,7 +477,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -696,57 +487,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Uptime-启动时长</name>
+                    <name>cluster_stats_messages_pong_sent</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,Uptime]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>3</value_type>
-                    <allowed_hosts/>
-                    <units>s</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing>
-                        <step>
-                            <type>1</type>
-                            <params>60</params>
-                        </step>
-                    </preprocessing>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>WaitingForConnection-等待连接</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,WaitingForConnection]</key>
+                    <key>redis.cluster.status[cluster_stats_messages_pong_sent]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -773,7 +518,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -783,11 +528,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>StatusUpdate-状态更新</name>
+                    <name>cluster_stats_messages_received</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[update,40000]</key>
+                    <key>redis.cluster.status[cluster_stats_messages_received]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -814,7 +559,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -824,11 +569,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>ListenPort 40000</name>
+                    <name>cluster_stats_messages_sent</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>net.tcp.listen[40000]</key>
+                    <key>redis.cluster.status[cluster_stats_messages_sent]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -855,7 +600,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>Redis</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -874,10 +619,26 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template App  HTTPD:net.tcp.listen[40000].last()}=0</expression>
+            <expression>{Template App Redis Cluster:redis.cluster.status[cluster_state].last()}=0</expression>
             <recovery_mode>1</recovery_mode>
-            <recovery_expression>{Template App  HTTPD:net.tcp.listen[40000].last()}=1</recovery_expression>
-            <name>HTTPD服务40000端口号丢失</name>
+            <recovery_expression>{Template App Redis Cluster:redis.cluster.status[cluster_state].last()}=1</recovery_expression>
+            <name>redis 集群失效</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template App Redis Cluster:redis.cluster.status[cluster_known_nodes].last()}&lt;6</expression>
+            <recovery_mode>1</recovery_mode>
+            <recovery_expression>{Template App Redis Cluster:redis.cluster.status[cluster_known_nodes].last()}=6</recovery_expression>
+            <name>redis 集群节点丢失</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -892,7 +653,7 @@
     </triggers>
     <graphs>
         <graph>
-            <name>HTTPD CPU Load</name>
+            <name>Redis cluster status - base</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
@@ -917,40 +678,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,CPULoad]</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>HTTPD Flows</name>
-            <width>900</width>
-            <height>200</height>
-            <yaxismin>0.0000</yaxismin>
-            <yaxismax>100.0000</yaxismax>
-            <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
-            <type>0</type>
-            <show_legend>1</show_legend>
-            <show_3d>0</show_3d>
-            <percent_left>0.0000</percent_left>
-            <percent_right>0.0000</percent_right>
-            <ymin_type_1>0</ymin_type_1>
-            <ymax_type_1>0</ymax_type_1>
-            <ymin_item_1>0</ymin_item_1>
-            <ymax_item_1>0</ymax_item_1>
-            <graph_items>
-                <graph_item>
-                    <sortorder>0</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>1A7C11</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,BytesPerReq]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_current_epoch]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -961,52 +690,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,BytesPerSec]</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>HTTPD Scoreboard</name>
-            <width>900</width>
-            <height>400</height>
-            <yaxismin>0.0000</yaxismin>
-            <yaxismax>100.0000</yaxismax>
-            <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
-            <type>0</type>
-            <show_legend>1</show_legend>
-            <show_3d>0</show_3d>
-            <percent_left>0.0000</percent_left>
-            <percent_right>0.0000</percent_right>
-            <ymin_type_1>0</ymin_type_1>
-            <ymax_type_1>0</ymax_type_1>
-            <ymin_item_1>0</ymin_item_1>
-            <ymax_item_1>0</ymax_item_1>
-            <graph_items>
-                <graph_item>
-                    <sortorder>0</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>1A7C11</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,ClosingConnection]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>1</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>F63100</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,DNSLookup]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_slots_assigned]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1017,8 +702,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,GracefullyFinishing]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_slots_fail]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1029,8 +714,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,IdleCleanupOfWorker]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_slots_ok]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1041,74 +726,14 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,KeepAlive]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>5</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>6C59DC</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,Logging]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>6</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>611F27</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,ReadingRequest]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>7</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>F230E0</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,SendingReply]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>8</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>5CCD18</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,StartingUp]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>9</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>BB2A02</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,WaitingForConnection]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_slots_pfail]</key>
                     </item>
                 </graph_item>
             </graph_items>
         </graph>
         <graph>
-            <name>HTTPD Works</name>
+            <name>Redis cluster status - messages</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
@@ -1128,25 +753,73 @@
                 <graph_item>
                     <sortorder>0</sortorder>
                     <drawtype>0</drawtype>
-                    <color>CC0000</color>
+                    <color>1A7C11</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,BusyWorkers]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_stats_messages_ping_received]</key>
                     </item>
                 </graph_item>
                 <graph_item>
                     <sortorder>1</sortorder>
                     <drawtype>0</drawtype>
-                    <color>3333FF</color>
+                    <color>F63100</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,IdleWorkers]</key>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_stats_messages_ping_sent]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>2774A4</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_stats_messages_pong_received]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>3</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>A54F10</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_stats_messages_pong_sent]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>4</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>FC6EA3</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_stats_messages_received]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>5</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>6C59DC</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template App Redis Cluster</host>
+                        <key>redis.cluster.status[cluster_stats_messages_sent]</key>
                     </item>
                 </graph_item>
             </graph_items>

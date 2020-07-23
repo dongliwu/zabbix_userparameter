@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-09-29T09:34:33Z</date>
+    <date>2019-10-15T06:00:20Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -26,6 +26,129 @@
                 </application>
             </applications>
             <items>
+                <item>
+                    <name>RabbitMQ port 5672</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>net.tcp.listen[5672]</key>
+                    <delay>30s</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>5672, 5671 (AMQP 0-9-1 without and with TLS)</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>rabbitmq server</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>RabbitMQ port 15672</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>net.tcp.listen[15672]</key>
+                    <delay>30s</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>15672  management plugin)</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>rabbitmq server</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>RabbitMQ port 25672</name>
+                    <type>0</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>net.tcp.listen[25672]</key>
+                    <delay>30s</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description>25672 (Erlang distribution)</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>rabbitmq server</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
                 <item>
                     <name>RabbitMQ erlang version</name>
                     <type>0</type>
@@ -266,95 +389,11 @@
                     <description>Queues Discovery</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Exchange persistence on {#NODE_NAME}, {#VHOST_NAME}, {#QUEUE_NAME}</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},exchange_durable,{#QUEUE_NAME}]</key>
-                            <delay>30m</delay>
-                            <history>90d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>4</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Exchange persistence</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>rabbitmq queues</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Exchange type on {#NODE_NAME}, {#VHOST_NAME}, {#QUEUE_NAME}</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},exchange_type,{#QUEUE_NAME}]</key>
-                            <delay>30m</delay>
-                            <history>90d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>4</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Exchange type</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>rabbitmq queues</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype/>
-                        </item_prototype>
-                        <item_prototype>
                             <name>Queue consumer count on {#NODE_NAME}, {#VHOST_NAME}, {#QUEUE_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_consumers,{#QUEUE_NAME}]</key>
+                            <key>rabbitmq.queue.status[{#VHOST_NAME},consumers,{#QUEUE_NAME}]</key>
                             <delay>1m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -392,53 +431,11 @@
                             <master_item_prototype/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Queue persistence on {#NODE_NAME}, {#VHOST_NAME}, {#QUEUE_NAME}</name>
-                            <type>0</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_durable,{#QUEUE_NAME}]</key>
-                            <delay>30m</delay>
-                            <history>90d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>4</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Queues persistence</description>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>rabbitmq queues</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                            <logtimefmt/>
-                            <preprocessing/>
-                            <jmx_endpoint/>
-                            <application_prototypes/>
-                            <master_item_prototype/>
-                        </item_prototype>
-                        <item_prototype>
                             <name>Queue memory on {#NODE_NAME}, {#VHOST_NAME}, {#QUEUE_NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_memory,{#QUEUE_NAME}]</key>
+                            <key>rabbitmq.queue.status[{#VHOST_NAME},memory,{#QUEUE_NAME}]</key>
                             <delay>1m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -485,7 +482,7 @@
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_msgs,{#QUEUE_NAME}]</key>
+                            <key>rabbitmq.queue.status[{#VHOST_NAME},messages,{#QUEUE_NAME}]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -527,7 +524,7 @@
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_msg_ready,{#QUEUE_NAME}]</key>
+                            <key>rabbitmq.queue.status[{#VHOST_NAME},messages_ready,{#QUEUE_NAME}]</key>
                             <delay>1m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -569,7 +566,7 @@
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_msg_unackd,{#QUEUE_NAME}]</key>
+                            <key>rabbitmq.queue.status[{#VHOST_NAME},messages_unacknowledged,{#QUEUE_NAME}]</key>
                             <delay>1m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -607,7 +604,40 @@
                             <master_item_prototype/>
                         </item_prototype>
                     </item_prototypes>
-                    <trigger_prototypes/>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template App RabbitMQ V3:rabbitmq.queue.status[{#VHOST_NAME},messages,{#QUEUE_NAME}].last()}&gt;100</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template App RabbitMQ V3:rabbitmq.queue.status[{#VHOST_NAME},messages,{#QUEUE_NAME}].last()}&lt;100</recovery_expression>
+                            <name>RabbitMQ 的 {#QUEUE_NAME} 队列的长度超过100</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template App RabbitMQ V3:rabbitmq.queue.status[{#VHOST_NAME},messages,{#QUEUE_NAME}].last()}&gt;500</expression>
+                            <recovery_mode>1</recovery_mode>
+                            <recovery_expression>{Template App RabbitMQ V3:rabbitmq.queue.status[{#VHOST_NAME},messages,{#QUEUE_NAME}].last()}&lt;500</recovery_expression>
+                            <name>RabbitMQ 的 {#QUEUE_NAME} 队列的长度超过500</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>4</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                    </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
                             <name>RabbitMQ queue memory on {#VHOST_NAME}, {#QUEUE_NAME}</name>
@@ -636,7 +666,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template App RabbitMQ V3</host>
-                                        <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_memory,{#QUEUE_NAME}]</key>
+                                        <key>rabbitmq.queue.status[{#VHOST_NAME},memory,{#QUEUE_NAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -668,7 +698,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template App RabbitMQ V3</host>
-                                        <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_consumers,{#QUEUE_NAME}]</key>
+                                        <key>rabbitmq.queue.status[{#VHOST_NAME},consumers,{#QUEUE_NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -680,7 +710,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template App RabbitMQ V3</host>
-                                        <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_msgs,{#QUEUE_NAME}]</key>
+                                        <key>rabbitmq.queue.status[{#VHOST_NAME},messages,{#QUEUE_NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -692,7 +722,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template App RabbitMQ V3</host>
-                                        <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_msg_ready,{#QUEUE_NAME}]</key>
+                                        <key>rabbitmq.queue.status[{#VHOST_NAME},messages_ready,{#QUEUE_NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -704,7 +734,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template App RabbitMQ V3</host>
-                                        <key>rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},queue_msg_unackd,{#QUEUE_NAME}]</key>
+                                        <key>rabbitmq.queue.status[{#VHOST_NAME},messages_unacknowledged,{#QUEUE_NAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -720,6 +750,56 @@
             <screens/>
         </template>
     </templates>
+    <triggers>
+        <trigger>
+            <expression>{Template App RabbitMQ V3:net.tcp.listen[5672].last()}=0</expression>
+            <recovery_mode>1</recovery_mode>
+            <recovery_expression>{Template App RabbitMQ V3:net.tcp.listen[5672].last()}=1</recovery_expression>
+            <name>RabbitMQ 端口号5672 出现故障</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template App RabbitMQ V3:net.tcp.listen[15672].last()}=0</expression>
+            <recovery_mode>1</recovery_mode>
+            <recovery_expression>{Template App RabbitMQ V3:net.tcp.listen[15672].last()}=1</recovery_expression>
+            <name>RabbitMQ 端口号15672 出现故障</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>{Template App RabbitMQ V3:net.tcp.listen[25672].last()}=0</expression>
+            <recovery_mode>1</recovery_mode>
+            <recovery_expression>{Template App RabbitMQ V3:net.tcp.listen[25672].last()}=1</recovery_expression>
+            <name>RabbitMQ 端口号25672 出现故障</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+    </triggers>
     <graphs>
         <graph>
             <name>RabbitMQ server status</name>

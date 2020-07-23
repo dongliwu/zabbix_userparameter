@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-10-22T06:56:54Z</date>
+    <date>2019-10-24T02:35:33Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -9,12 +9,15 @@
         <group>
             <name>Templates</name>
         </group>
+        <group>
+            <name>Templates/Applications</name>
+        </group>
     </groups>
     <templates>
         <template>
-            <template>Template App  HTTPD</template>
-            <name>Template App  HTTPD</name>
-            <description>httpd服务模板</description>
+            <template>Template App PHP-FPM</template>
+            <name>Template App PHP-FPM</name>
+            <description>php-fpm监控</description>
             <groups>
                 <group>
                     <name>Linux servers</name>
@@ -22,19 +25,22 @@
                 <group>
                     <name>Templates</name>
                 </group>
+                <group>
+                    <name>Templates/Applications</name>
+                </group>
             </groups>
             <applications>
                 <application>
-                    <name>HTTPD</name>
+                    <name>PHP</name>
                 </application>
             </applications>
             <items>
                 <item>
-                    <name>BusyWorkers-忙碌进程</name>
+                    <name>accepted_conn - 接受的请求</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,BusyWorkers]</key>
+                    <key>php.status[accepted_conn]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -61,7 +67,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -71,103 +77,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>BytesPerReq-每请求字节大小</name>
+                    <name>active_processes - 活跃进程数</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,BytesPerReq]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing>
-                        <step>
-                            <type>1</type>
-                            <params>1024</params>
-                        </step>
-                    </preprocessing>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>BytesPerSec-每秒字节大小</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,BytesPerSec]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>3</value_type>
-                    <allowed_hosts/>
-                    <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing>
-                        <step>
-                            <type>1</type>
-                            <params>1024</params>
-                        </step>
-                    </preprocessing>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>ClosingConnection-关闭连接</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,ClosingConnection]</key>
+                    <key>php.status[active_processes]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -194,7 +108,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -204,52 +118,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>CPULoad-CPU负载</name>
+                    <name>idle_processes - 空闲进程数</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,CPULoad]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units/>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>DNSLookup-DNS查询</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>httpd.status[get,DNSLookup]</key>
+                    <key>php.status[idle_processes]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -276,7 +149,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -286,11 +159,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>GracefullyFinishing-正常结束</name>
+                    <name>listen_queue - 监听队列</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,GracefullyFinishing]</key>
+                    <key>php.status[listen_queue]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -317,7 +190,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -327,11 +200,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>IdleCleanupOfWorker-处理闲置</name>
+                    <name>listen_queue_len - 监听队列长度</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,IdleCleanupOfWorker]</key>
+                    <key>php.status[listen_queue_len]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -358,7 +231,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -368,11 +241,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>IdleWorkers-闲置进程</name>
+                    <name>max_active_processes - 最大活跃进程数</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,IdleWorkers]</key>
+                    <key>php.status[max_active_processes]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -399,7 +272,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -409,11 +282,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>KeepAlive-保持连接</name>
+                    <name>max_children_reached - 进程最大数量限制次数</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,KeepAlive]</key>
+                    <key>php.status[max_children_reached]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -440,7 +313,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -450,11 +323,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Logging-记录日志</name>
+                    <name>max_listen_queue - 最大监听队列</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,Logging]</key>
+                    <key>php.status[max_listen_queue]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -481,7 +354,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -491,11 +364,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>OpenSlotWithNoCurrentProcess-闲置连接口</name>
+                    <name>ping</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,OpenSlotWithNoCurrentProcess]</key>
+                    <key>php.status[ping]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -522,7 +395,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -532,16 +405,16 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>ReadingRequest-读取请求</name>
+                    <name>pool - fpm池名</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,ReadingRequest]</key>
+                    <key>php.status[pool]</key>
                     <delay>1m</delay>
                     <history>90d</history>
-                    <trends>365d</trends>
+                    <trends>0</trends>
                     <status>0</status>
-                    <value_type>0</value_type>
+                    <value_type>4</value_type>
                     <allowed_hosts/>
                     <units/>
                     <snmpv3_contextname/>
@@ -563,7 +436,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -573,16 +446,16 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>ReqPerSec-每秒请求数</name>
+                    <name>process_manager - 进程管理方式</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,ReqPerSec]</key>
+                    <key>php.status[process_manager]</key>
                     <delay>1m</delay>
                     <history>90d</history>
-                    <trends>365d</trends>
+                    <trends>0</trends>
                     <status>0</status>
-                    <value_type>0</value_type>
+                    <value_type>4</value_type>
                     <allowed_hosts/>
                     <units/>
                     <snmpv3_contextname/>
@@ -604,7 +477,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -614,11 +487,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>SendingReply-发送回复</name>
+                    <name>slow_requests - 慢请求</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,SendingReply]</key>
+                    <key>php.status[slow_requests]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -645,7 +518,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -655,11 +528,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>StartingUp-启动中</name>
+                    <name>start_since - 持续时间</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,StartingUp]</key>
+                    <key>php.status[start_since]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -686,7 +559,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -696,18 +569,18 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Uptime-启动时长</name>
+                    <name>start_time - 启动时间</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,Uptime]</key>
+                    <key>php.status[start_time]</key>
                     <delay>1m</delay>
                     <history>90d</history>
-                    <trends>365d</trends>
+                    <trends>0</trends>
                     <status>0</status>
-                    <value_type>3</value_type>
+                    <value_type>4</value_type>
                     <allowed_hosts/>
-                    <units>s</units>
+                    <units/>
                     <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -727,26 +600,21 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
                     <logtimefmt/>
-                    <preprocessing>
-                        <step>
-                            <type>1</type>
-                            <params>60</params>
-                        </step>
-                    </preprocessing>
+                    <preprocessing/>
                     <jmx_endpoint/>
                     <master_item/>
                 </item>
                 <item>
-                    <name>WaitingForConnection-等待连接</name>
+                    <name>total_processes - 总进程数</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[get,WaitingForConnection]</key>
+                    <key>php.status[total_processes]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -773,7 +641,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -783,11 +651,11 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>StatusUpdate-状态更新</name>
+                    <name>update</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>httpd.status[update,40000]</key>
+                    <key>php.status[update]</key>
                     <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -814,48 +682,7 @@
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>HTTPD</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
-                <item>
-                    <name>ListenPort 40000</name>
-                    <type>0</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>net.tcp.listen[40000]</key>
-                    <delay>1m</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>3</value_type>
-                    <allowed_hosts/>
-                    <units/>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>HTTPD</name>
+                            <name>PHP</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -874,10 +701,10 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template App  HTTPD:net.tcp.listen[40000].last()}=0</expression>
+            <expression>{Template App PHP-FPM:php.status[ping].last()}=0</expression>
             <recovery_mode>1</recovery_mode>
-            <recovery_expression>{Template App  HTTPD:net.tcp.listen[40000].last()}=1</recovery_expression>
-            <name>HTTPD服务40000端口号丢失</name>
+            <recovery_expression>{Template App PHP-FPM:php.status[ping].last()}=1</recovery_expression>
+            <name>PHP-FPM 服务故障</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -889,10 +716,26 @@
             <dependencies/>
             <tags/>
         </trigger>
+        <trigger>
+            <expression>{Template App PHP-FPM:php.status[listen_queue].last()}&gt;0</expression>
+            <recovery_mode>1</recovery_mode>
+            <recovery_expression>{Template App PHP-FPM:php.status[listen_queue].last()}=0</recovery_expression>
+            <name>PHP-FPM 队列堆积</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>0</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
     </triggers>
     <graphs>
         <graph>
-            <name>HTTPD CPU Load</name>
+            <name>PHP-FPM Status</name>
             <width>900</width>
             <height>200</height>
             <yaxismin>0.0000</yaxismin>
@@ -912,149 +755,73 @@
                 <graph_item>
                     <sortorder>0</sortorder>
                     <drawtype>0</drawtype>
-                    <color>1A7C11</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,CPULoad]</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>HTTPD Flows</name>
-            <width>900</width>
-            <height>200</height>
-            <yaxismin>0.0000</yaxismin>
-            <yaxismax>100.0000</yaxismax>
-            <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
-            <type>0</type>
-            <show_legend>1</show_legend>
-            <show_3d>0</show_3d>
-            <percent_left>0.0000</percent_left>
-            <percent_right>0.0000</percent_right>
-            <ymin_type_1>0</ymin_type_1>
-            <ymax_type_1>0</ymax_type_1>
-            <ymin_item_1>0</ymin_item_1>
-            <ymax_item_1>0</ymax_item_1>
-            <graph_items>
-                <graph_item>
-                    <sortorder>0</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>1A7C11</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,BytesPerReq]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>1</sortorder>
-                    <drawtype>0</drawtype>
                     <color>F63100</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,BytesPerSec]</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>HTTPD Scoreboard</name>
-            <width>900</width>
-            <height>400</height>
-            <yaxismin>0.0000</yaxismin>
-            <yaxismax>100.0000</yaxismax>
-            <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
-            <type>0</type>
-            <show_legend>1</show_legend>
-            <show_3d>0</show_3d>
-            <percent_left>0.0000</percent_left>
-            <percent_right>0.0000</percent_right>
-            <ymin_type_1>0</ymin_type_1>
-            <ymax_type_1>0</ymax_type_1>
-            <ymin_item_1>0</ymin_item_1>
-            <ymax_item_1>0</ymax_item_1>
-            <graph_items>
-                <graph_item>
-                    <sortorder>0</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>1A7C11</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,ClosingConnection]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[active_processes]</key>
                     </item>
                 </graph_item>
                 <graph_item>
                     <sortorder>1</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>F63100</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,DNSLookup]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>2</sortorder>
                     <drawtype>0</drawtype>
                     <color>2774A4</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,GracefullyFinishing]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[idle_processes]</key>
                     </item>
                 </graph_item>
                 <graph_item>
-                    <sortorder>3</sortorder>
+                    <sortorder>2</sortorder>
                     <drawtype>0</drawtype>
                     <color>A54F10</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,IdleCleanupOfWorker]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[listen_queue]</key>
                     </item>
                 </graph_item>
                 <graph_item>
-                    <sortorder>4</sortorder>
+                    <sortorder>3</sortorder>
                     <drawtype>0</drawtype>
                     <color>FC6EA3</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,KeepAlive]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[listen_queue_len]</key>
                     </item>
                 </graph_item>
                 <graph_item>
-                    <sortorder>5</sortorder>
+                    <sortorder>4</sortorder>
                     <drawtype>0</drawtype>
                     <color>6C59DC</color>
                     <yaxisside>0</yaxisside>
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,Logging]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[max_active_processes]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>5</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>AC8C14</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>2</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[max_children_reached]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1065,8 +832,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,ReadingRequest]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[max_listen_queue]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1077,8 +844,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,SendingReply]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[slow_requests]</key>
                     </item>
                 </graph_item>
                 <graph_item>
@@ -1089,64 +856,8 @@
                     <calc_fnc>2</calc_fnc>
                     <type>0</type>
                     <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,StartingUp]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>9</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>BB2A02</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,WaitingForConnection]</key>
-                    </item>
-                </graph_item>
-            </graph_items>
-        </graph>
-        <graph>
-            <name>HTTPD Works</name>
-            <width>900</width>
-            <height>200</height>
-            <yaxismin>0.0000</yaxismin>
-            <yaxismax>100.0000</yaxismax>
-            <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
-            <type>0</type>
-            <show_legend>1</show_legend>
-            <show_3d>0</show_3d>
-            <percent_left>0.0000</percent_left>
-            <percent_right>0.0000</percent_right>
-            <ymin_type_1>0</ymin_type_1>
-            <ymax_type_1>0</ymax_type_1>
-            <ymin_item_1>0</ymin_item_1>
-            <ymax_item_1>0</ymax_item_1>
-            <graph_items>
-                <graph_item>
-                    <sortorder>0</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>CC0000</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,BusyWorkers]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>1</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>3333FF</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>2</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template App  HTTPD</host>
-                        <key>httpd.status[get,IdleWorkers]</key>
+                        <host>Template App PHP-FPM</host>
+                        <key>php.status[total_processes]</key>
                     </item>
                 </graph_item>
             </graph_items>

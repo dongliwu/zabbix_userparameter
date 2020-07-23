@@ -197,7 +197,7 @@ sudo pip install requests
 ```bash
 # RabbitMQ
 UserParameter=rabbitmq.queue.discovery,/usr/local/zabbix_userparameter/scripts/rabbitmq_queues_discover.py
-UserParameter=rabbitmq.queue.status[*],/usr/local/zabbix_userparameter/scripts/rabbitmq_queues_status.sh $1 $2 $3 $4
+UserParameter=rabbitmq.queue.status[*],/usr/local/zabbix_userparameter/scripts/rabbitmq_queues_status.py $1 $2 $3
 UserParameter=rabbitmq.server.status[*],/usr/local/zabbix_userparameter/scripts/rabbitmq_server_status.py $1
 ```
 
@@ -208,11 +208,10 @@ UserParameter=rabbitmq.server.status[*],/usr/local/zabbix_userparameter/scripts/
 rabbitmq.queue.discovery
 
 # 队列状态
-rabbitmq.queue.status[{#NODE_NAME},{#VHOST_NAME},<METRIC>,{#QUEUE_NAME}]
-# {#NODE_NAME} 为自动发现的node名，无需更改
+rabbitmq.queue.status[{#VHOST_NAME},<METRIC>,{#QUEUE_NAME}]
 # {#VHOST_NAME} 为自动发现的vhost名，无需更改
 # {#QUEUE_NAME} 为自动发现的队列名，无需更改
-# METRIC 可选值: "list_queues", "list_exchanges", "queue_durable", "queue_msg_ready", "queue_msg_unackd", "queue_msgs", "queue_consumers", "queue_memory", "exchange_durable", "exchange_type"
+# METRIC 可选值: 'consumers', 'memory', 'messages', 'messages_ready', 'messages_unacknowledged'
 
 # 服务状态
 rabbitmq.server.status[<ITEM>]
@@ -238,18 +237,21 @@ protocol = http
 执行权限:
 
 ```bash
-# 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
-echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
+# 修改/etc/sudoer，增加sudo权限以及notty权限
+Defaults:zabbix !requiretty
+zabbix    ALL=(ALL)    NOPASSWD:ALL
 ```
 
 
 
 ### Apache httpd监控
 
-加载mod_status模块:
+httpd配置:
 
 ```bash
-# 在httpd配置文件中导入模块
+# 监听端口40000
+Listen 127.0.0.1:40000
+# 导入模块
 LoadModule status_module modules/mod_status.so
 ```
 
@@ -301,4 +303,216 @@ httpd.status[get,<ITEM>]
 模板:
 
 [zbx_httpd_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_httpd_template.xml)
+
+
+
+### Redis
+
+配置:
+
+```bash
+# Redis
+UserParameter=redis.server.status[*],/usr/local/zabbix_userparameter/scripts/redis_server_status.sh $1
+UserParameter=redis.cluster.status[*],/usr/local/zabbix_userparameter/scripts/redis_cluster_status.sh $1
+```
+
+键值:
+
+```bash
+# redis服务
+redis.server.status[<ITEM>]
+# ITEM 可选值: "connected_clients", "used_memory", "used_memory_rss", "used_memory_peak", "total_connections_received", "instantaneous_ops_per_sec", "instantaneous_input_kbps", "instantaneous_output_kbps", "rejected_connections", "expired_keys", "evicted_keys", "keyspace_hits", "keyspace_misses"
+
+# redis集群
+redis.cluster.status[<ITEM>]
+# ITEM 可选值: "cluster_state", "cluster_slots_assigned", "cluster_slots_ok", "cluster_slots_pfail", "cluster_slots_fail", "cluster_known_nodes", "cluster_size", "cluster_current_epoch", "cluster_my_epoch", "cluster_stats_messages_ping_sent", "cluster_stats_messages_pong_sent", "cluster_stats_messages_sent", "cluster_stats_messages_ping_received", "cluster_stats_messages_pong_received", "cluster_stats_messages_received"
+```
+
+模板:
+
+[zbx_redis_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_redis_template.xml)
+
+[zbx_redis_cluster_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_redis_cluster_template.xml)
+
+
+
+### Nginx
+
+开启nginx_status:
+
+```bash
+    location /nginx_status {
+       stub_status on;
+       access_log off;
+       allow 127.0.0.1;
+       deny all;
+    }
+```
+
+配置:
+
+```bash
+UserParameter=nginx.status[*],/usr/local/zabbix_userparameter/scripts/nginx_status.sh $1
+```
+
+键值:
+
+```bash
+nginx.status[<ITEM>]
+# ITEM 可选值: 'ping', 'active', 'reading', 'writing', 'waiting', 'accepts', 'handled', 'requests'
+```
+
+模板:
+
+[zbx_nginx_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_nginx_template.xml)
+
+
+
+### TCP 
+
+配置:
+
+```bash
+# TCP
+UserParameter=tcp.status[*], /usr/local/zabbix_userparameter/scripts/tcp_status.sh $1
+```
+
+键值:
+
+```bash
+tcp.status[<ITEM>]
+# ITEM 可选值: "CLOSE-WAIT", "CLOSED", "CLOSING", "ESTAB", "FIN-WAIT-1", "FIN-WAIT-2", "LAST-ACK", "LISTEN", "SYN-RECV", "SYN-SENT", "TIME-WAIT"
+```
+
+模板:
+
+[zbx_tcp_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_tcp_template.xml)
+
+
+
+### PHP-FPM
+
+php-fpm配置:
+
+```bash
+# 在配置文件中添加获取状态的路径
+pm.status_path = /php_status
+ping.path = /ping
+```
+
+httpd配置:
+
+```bash
+# 在httpd中新增获取状态的虚拟主机
+<VirtualHost 127.0.0.1:40000>
+   <LocationMatch "/(php_status|ping)">
+      SetHandler "proxy:fcgi://127.0.0.1:9000"
+   </LocationMatch>
+</VirtualHost>
+```
+
+配置:
+
+```bash
+# PHP-FPM
+UserParameter=php.status[*],/usr/local/zabbix_userparameter/scripts/php_status.sh $1
+```
+
+键值:
+
+```bash
+php.status[<ITEM>]
+# ITEM 可选值:ping, update，pool，process_manager，start_time，start_since，accepted_conn，listen_queue，max_listen_queue，listen_queue_len，idle_processes，active_processes，total_processes，max_active_processes，max_children_reached，slow_requests
+```
+
+模板: 
+
+[zbx_php-fpm_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_php-fpm_template.xml)
+
+
+
+###  JAVA
+
+约束：
+
+* jstat路径为/usr/local/java/bin/jstat
+
+权限：
+
+```bash
+# 修改/etc/sudoer，增加sudo权限以及notty权限
+Defaults:zabbix !requiretty
+zabbix    ALL=(ALL)    NOPASSWD:ALL
+```
+
+配置：
+
+```bash
+# JAVA
+UserParameter=java.discovery, /usr/local/zabbix_userparameter/scripts/java_discovery.py
+UserParameter=java.status[*], /usr/local/zabbix_userparameter/scripts/java_status.sh $1 $2
+```
+
+键值：
+
+```bash
+java.discovery
+# 自动发现
+java.status[{#JAR_NAME},<ITEM>]
+# {#JAR_NAME}为自动发现出的jar程序
+# ITEM 可选值:S0C|S0U|S1C|S1U|EC|EU|OC|OU|MC|MU|CCSC|CCSU|YGC|YGCT|FGC|FGCT|GCT
+```
+
+模板：
+
+[zbx_java_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_java_template.xml)
+
+
+
+###  MySQL
+
+约束：
+
+* zabbix部署目录为/usr/local/zabbix/
+
+授权：
+
+```bash
+# 在mysql中添加zabbix访问授权
+grant all privileges on *.* to 'zabbix'@'localhost' identified by 'ZabbixPasswd5!';
+flush privileges;
+```
+```bash
+# 新增/usr/local/zabbix/.my.cnf文件，录入mysql登录信息
+[mysql]
+host=localhost
+user=zabbix
+password='ZabbixPasswd5!'
+socket=/var/lib/mysql/mysql.sock
+
+[mysqladmin]
+host=localhost
+user=zabbix
+password='ZabbixPasswd5!'
+socket=/var/lib/mysql/mysql.sock
+```
+
+配置：
+
+```bash
+# JAVA
+# MySQL
+UserParameter=mysql.status[*],echo "show global status where Variable_name='$1';" | HOME=/usr/local/zabbix /bin/mysql -N | awk '{print $$2}'
+UserParameter=mysql.size[*],bash -c 'echo "select sum($(case "$3" in both|"") echo "data_length+index_length";; data|index) echo "$3_length";; free) echo "data_free";; esac)) from information_schema.tables$([[ "$1" = "all" || ! "$1" ]] || echo " wheretable_schema=\"$1\"")$([[ "$2" = "all" || ! "$2" ]] || echo "and table_name=\"$2\"");" | HOME=/usr/local/zabbix /bin/mysql -N'
+UserParameter=mysql.ping,HOME=/usr/local/zabbix /bin/mysqladmin ping | grep -c alive
+UserParameter=mysql.version,/bin/mysql -V
+
+# MySQL Cluster
+UserParameter=mysql.cluster[*],echo "show global status where Variable_name='$1';" | HOME=/usr/local/zabbix /bin/mysql -N | awk '{print $$2}'
+UserParameter=mysql.cluster.ping,echo "show global status where Variable_name='wsrep_connected';" | HOME=/usr/local/zabbix /bin/mysql -N | grep -c on
+```
+
+模板：
+
+[zbx_java_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_mysql_cluster_template.xml)
 
