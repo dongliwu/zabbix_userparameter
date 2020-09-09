@@ -308,11 +308,23 @@ httpd.status[get,<ITEM>]
 
 ### Redis
 
+约束：
+
+* zabbix部署目录为/usr/local/zabbix/ 
+
 配置:
 
 ```bash
+# 新增/usr/local/zabbix/.redis.cnf文件，录入redis登录信息
+REDISCLI="/usr/local/ProgramData/redis-5.0.5/bin/redis-cli"
+HOST="localhost"
+PORT=6379
+PASSWORD=""
+```
+
+```bash
 # Redis
-UserParameter=redis.server.status[*],/usr/local/zabbix_userparameter/scripts/redis_server_status.sh $1
+UserParameter=redis.server.status[*],/usr/local/zabbix_userparameter/scripts/redis_server_status.sh $1 $2
 UserParameter=redis.cluster.status[*],/usr/local/zabbix_userparameter/scripts/redis_cluster_status.sh $1
 ```
 
@@ -320,8 +332,9 @@ UserParameter=redis.cluster.status[*],/usr/local/zabbix_userparameter/scripts/re
 
 ```bash
 # redis服务
-redis.server.status[<ITEM>]
-# ITEM 可选值: "connected_clients", "used_memory", "used_memory_rss", "used_memory_peak", "total_connections_received", "instantaneous_ops_per_sec", "instantaneous_input_kbps", "instantaneous_output_kbps", "rejected_connections", "expired_keys", "evicted_keys", "keyspace_hits", "keyspace_misses"
+redis.server.status[<ITEM1>,<ITEM2>]
+# ITEM1 可选值: "discovery", "ping", connected_clients", "used_memory", "used_memory_rss", "used_memory_peak", "total_connections_received", "instantaneous_ops_per_sec", "instantaneous_input_kbps", "instantaneous_output_kbps", "rejected_connections", "expired_keys", "evicted_keys", "keyspace_hits", "keyspace_misses", "{#DB}"
+# ITEM2 可选值: "keys", "expires", "avg_ttl"
 
 # redis集群
 redis.cluster.status[<ITEM>]
@@ -500,7 +513,6 @@ socket=/var/lib/mysql/mysql.sock
 配置：
 
 ```bash
-# JAVA
 # MySQL
 UserParameter=mysql.status[*],echo "show global status where Variable_name='$1';" | HOME=/usr/local/zabbix /bin/mysql -N | awk '{print $$2}'
 UserParameter=mysql.size[*],bash -c 'echo "select sum($(case "$3" in both|"") echo "data_length+index_length";; data|index) echo "$3_length";; free) echo "data_free";; esac)) from information_schema.tables$([[ "$1" = "all" || ! "$1" ]] || echo " wheretable_schema=\"$1\"")$([[ "$2" = "all" || ! "$2" ]] || echo "and table_name=\"$2\"");" | HOME=/usr/local/zabbix /bin/mysql -N'
@@ -514,5 +526,5 @@ UserParameter=mysql.cluster.ping,echo "show global status where Variable_name='w
 
 模板：
 
-[zbx_java_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_mysql_cluster_template.xml)
+[zbx_mysql_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_mysql_cluster_template.xml)
 
