@@ -324,21 +324,14 @@ PASSWORD=""
 
 ```bash
 # Redis
-UserParameter=redis.server.status[*],/usr/local/zabbix_userparameter/scripts/redis_server_status.sh $1 $2
-UserParameter=redis.cluster.status[*],/usr/local/zabbix_userparameter/scripts/redis_cluster_status.sh $1
+UserParameter=redis.status[*],/usr/local/zabbix_userparameter/scripts/redis_status.sh $1 $2
+#UserParameter=redis.cluster.status[*],/usr/local/zabbix_userparameter/scripts/redis_cluster_status.sh $1
 ```
 
 键值:
 
 ```bash
-# redis服务
-redis.server.status[<ITEM1>,<ITEM2>]
-# ITEM1 可选值: "discovery", "ping", connected_clients", "used_memory", "used_memory_rss", "used_memory_peak", "total_connections_received", "instantaneous_ops_per_sec", "instantaneous_input_kbps", "instantaneous_output_kbps", "rejected_connections", "expired_keys", "evicted_keys", "keyspace_hits", "keyspace_misses", "{#DB}"
-# ITEM2 可选值: "keys", "expires", "avg_ttl"
-
-# redis集群
-redis.cluster.status[<ITEM>]
-# ITEM 可选值: "cluster_state", "cluster_slots_assigned", "cluster_slots_ok", "cluster_slots_pfail", "cluster_slots_fail", "cluster_known_nodes", "cluster_size", "cluster_current_epoch", "cluster_my_epoch", "cluster_stats_messages_ping_sent", "cluster_stats_messages_pong_sent", "cluster_stats_messages_sent", "cluster_stats_messages_ping_received", "cluster_stats_messages_pong_received", "cluster_stats_messages_received"
+略
 ```
 
 模板:
