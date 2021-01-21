@@ -494,23 +494,20 @@ flush privileges;
 host=localhost
 user=zabbix
 password='ZabbixPasswd5!'
-socket=/var/lib/mysql/mysql.sock
 
 [mysqladmin]
 host=localhost
 user=zabbix
 password='ZabbixPasswd5!'
-socket=/var/lib/mysql/mysql.sock
 ```
 
 配置：
 
 ```bash
 # MySQL
-UserParameter=mysql.status[*],echo "show global status where Variable_name='$1';" | HOME=/usr/local/zabbix /bin/mysql -N | awk '{print $$2}'
-UserParameter=mysql.size[*],bash -c 'echo "select sum($(case "$3" in both|"") echo "data_length+index_length";; data|index) echo "$3_length";; free) echo "data_free";; esac)) from information_schema.tables$([[ "$1" = "all" || ! "$1" ]] || echo " wheretable_schema=\"$1\"")$([[ "$2" = "all" || ! "$2" ]] || echo "and table_name=\"$2\"");" | HOME=/usr/local/zabbix /bin/mysql -N'
-UserParameter=mysql.ping,HOME=/usr/local/zabbix /bin/mysqladmin ping | grep -c alive
-UserParameter=mysql.version,/bin/mysql -V
+UserParameter=mysql.status[*], /usr/local/zabbix_userparameter/scripts/mysql_status.sh $1
+UserParameter=mysql.ping, /usr/local/zabbix_userparameter/scripts/mysql_status.sh ping
+UserParameter=mysql.version, /usr/local/zabbix_userparameter/scripts/mysql_status.sh version
 
 # MySQL Cluster
 UserParameter=mysql.cluster[*],echo "show global status where Variable_name='$1';" | HOME=/usr/local/zabbix /bin/mysql -N | awk '{print $$2}'
@@ -518,6 +515,8 @@ UserParameter=mysql.cluster.ping,echo "show global status where Variable_name='w
 ```
 
 模板：
+
+[zbx_mysql_extension_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_mysql_extension_template.xml)
 
 [zbx_mysql_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_mysql_cluster_template.xml)
 
