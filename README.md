@@ -520,3 +520,17 @@ UserParameter=mysql.cluster.ping,echo "show global status where Variable_name='w
 
 [zbx_mysql_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_mysql_cluster_template.xml)
 
+
+
+### Elasticsearch
+
+配置:
+
+```bash
+# Elasticsearch
+UserParameter=elasticsearch.status[*], /usr/local/zabbix_userparameter/scripts/elasticsearch_status.py $1
+```
+
+模板:
+
+[zbx_elasticsearch_template.xml](https://github.com/dongliwu/zabbix_userparameter/blob/master/templates/zbx_elasticsearch_template.xml)
