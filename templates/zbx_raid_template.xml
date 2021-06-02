@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-12-25T06:14:46Z</date>
+    <date>2021-06-02T01:53:20Z</date>
     <groups>
         <group>
             <name>Linux servers</name>
@@ -36,7 +36,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>raid.disk.discovery</key>
-                    <delay>1m</delay>
+                    <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
@@ -68,13 +68,13 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>raid.disk[{#RAID_DISK}, drive-temp]</key>
-                            <delay>1m</delay>
+                            <delay>5m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>℃</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -110,7 +110,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>raid.disk[{#RAID_DISK}, errors-media]</key>
-                            <delay>1m</delay>
+                            <delay>5m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -152,7 +152,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>raid.disk[{#RAID_DISK}, errors-other]</key>
-                            <delay>1m</delay>
+                            <delay>5m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -194,7 +194,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>raid.disk[{#RAID_DISK}, inquiry-data]</key>
-                            <delay>1m</delay>
+                            <delay>1d</delay>
                             <history>90d</history>
                             <trends>0</trends>
                             <status>0</status>
@@ -236,7 +236,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>raid.disk[{#RAID_DISK}, predictive-failures]</key>
-                            <delay>1m</delay>
+                            <delay>5m</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
@@ -432,7 +432,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>raid.vol.discovery</key>
-                    <delay>1m</delay>
+                    <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>

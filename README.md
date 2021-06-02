@@ -148,7 +148,7 @@ raid.disk[#RAID_DISK}, <ITEM>]
 
 ```bash
 # 要zabbix_agent能够运行上面的脚本，需要zabbix用户有sudo的NOPASSWD权限
-echo "zabbix    ALL=(ALL)    NOPASSWD:ALL" >> /etc/sudoers
+echo "zabbix    ALL=(ALL)    NOPASSWD:/usr/local/bin/MegaCli" >> /etc/sudoers
 ```
 
 模板:
